@@ -53,7 +53,7 @@ class _AutoCompleteState extends State<AutoComplete> {
                 itemFilter: (item, query) {
                   return item.autocompleteterm
                       .toLowerCase()
-                      .startsWith(query.toLowerCase());
+                      .contains(query.toLowerCase());
                 },
                 style: const TextStyle(color: Colors.black, fontSize: 16.0),
                 decoration: const InputDecoration(
