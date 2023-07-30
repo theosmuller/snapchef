@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:snapchef/autocomplete.dart';
 import 'package:snapchef/recipe.dart';
 
+import 'favoritespage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -54,6 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               foregroundColor: Colors.white,
                               backgroundColor: const Color.fromARGB(255, 243, 131, 33),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                                  horizontal: 20, vertical: 35),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(0),
                               ),
@@ -108,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton.icon(
                             onPressed: () {
                               // Add functionality for the favorites button
+                              _navigateToFavoritesPage(context);
                               print('Favorites button pressed');
                             },
                             icon: const Icon(Icons.favorite),
@@ -116,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                               backgroundColor: const Color.fromARGB(255, 248, 246, 240),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                                  horizontal: 20, vertical: 35),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(0),
                               ),
@@ -132,6 +137,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      
     );
+    
+    
   }
+  void _navigateToFavoritesPage(BuildContext context) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FavoritesPage(favoriteRecipes: RecipeViewModel.recipes),
+        ),
+      );
+    }
 }
