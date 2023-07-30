@@ -7,12 +7,14 @@ class Recipe {
   int id;
   String autocompleteterm;
   String country;
+  String image;
 
   Recipe({
     required this.keyword,
     required this.id,
     required this.autocompleteterm,
-    required this.country
+    required this.country,
+    required this.image
   });
 
   factory Recipe.fromJson(Map<String, dynamic> parsedJson) {
@@ -20,7 +22,8 @@ class Recipe {
         keyword: parsedJson['keyword'] as String,
         id: parsedJson['id'],
         autocompleteterm: parsedJson['autocompleteTerm'] as String,
-        country: parsedJson['country'] as String
+        country: parsedJson['country'] as String,
+        image: parsedJson['image'] as String
     );
   }
 

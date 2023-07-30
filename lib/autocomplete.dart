@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:snapchef/recipe.dart';
 
 class AutoCompleteWidget extends StatefulWidget {
+  const AutoCompleteWidget({super.key});
+
   @override
   _AutoCompleteState createState() => _AutoCompleteState();
 }
