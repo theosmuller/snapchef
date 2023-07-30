@@ -29,23 +29,29 @@ class _AutoCompleteState extends State<AutoCompleteWidget> {
             key: key,
             suggestions: suggestions,
             itemBuilder: (context, item) {
-              return Flexible(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      // Wrap this Expanded widget around the Row
-                      child: Text(
-                        item.autocompleteterm,
-                        style: const TextStyle(fontSize: 16.0),
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        // Wrap this Expanded widget around the Text
+                        child: Text(
+                          item.autocompleteterm,
+                          style: const TextStyle(fontSize: 16.0),
+                        ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(15.0),
-                    ),
-                    Text(item.country),
-                  ],
-                ),
+                      const Padding(
+                        padding: EdgeInsets.all(15.0),
+                      ),
+                      Text(item.country),
+                    ],
+                  ),
+                  Divider(
+                    color: Colors.black.withOpacity(0.1), // Set the line color with transparency
+                    thickness: 0.5, // Set the line thickness
+                  ),
+                ],
               );
             },
             itemSorter: (a, b) {
