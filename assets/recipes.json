@@ -1,0 +1,22 @@
+{
+  "recipes": [
+    {
+      "keyword": "Pie",
+      "id": 1,
+      "autocompleteTerm": "Simple Lemon Pie",
+      "country": "United States"
+    },
+    {
+      "keyword": "Burger",
+      "id": 2,
+      "autocompleteTerm": "Chickpea and Lentil Burger",
+      "country": "United States"
+    },
+    {
+      "keyword": "Soup",
+      "id": 3,
+      "autocompleteTerm": "Creamy Mushroom Soup",
+      "country": "France"
+    }
+  ]
+}
