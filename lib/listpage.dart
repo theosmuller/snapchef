@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:snapchef/recipe.dart';
 import 'package:snapchef/recipedetails.dart';
 
+import 'bottombar.dart';
+
 class ListPage extends StatelessWidget {
   final List<Recipe> recipes;
 
@@ -10,34 +12,36 @@ class ListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Favorites'),
-      ),
-      body: recipes.isEmpty
-          ? const Center(
-              child: Text(
-                'No recipes found :(',
-                style: TextStyle(fontSize: 20),
-              ),
-            )
-          : ListView.builder(
-              itemCount: recipes.length,
-              itemBuilder: (context, index) {
-                Recipe recipe = recipes[index];
-                return GestureDetector(
-                  onTap: () {
-                    _navigateToRecipeDetails(
-                        context, recipe); // Navigate to details page
-                  },
-                  child: ListTile(
-                    leading: _buildRecipeImage(recipe.image),
-                    title: Text(recipe.autocompleteterm),
-                    subtitle: Text(recipe.country),
+        appBar: AppBar(),
+        body: Column(children: [
+          recipes.isEmpty
+              ? const Center(
+                  child: Text(
+                    'No recipes found :(',
+                    style: TextStyle(fontSize: 20),
                   ),
-                );
-              },
-            ),
-    );
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: recipes.length,
+                    itemBuilder: (context, index) {
+                      Recipe recipe = recipes[index];
+                      return GestureDetector(
+                        onTap: () {
+                          _navigateToRecipeDetails(
+                              context, recipe); // Navigate to details page
+                        },
+                        child: ListTile(
+                          leading: _buildRecipeImage(recipe.image),
+                          title: Text(recipe.autocompleteterm),
+                          subtitle: Text(recipe.country),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+          const BottomBar(),
+        ]));
   }
 
   Widget _buildRecipeImage(String imageUri) {
