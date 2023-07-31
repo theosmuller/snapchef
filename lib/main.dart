@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snapchef/autocomplete.dart';
+import 'package:snapchef/listpage.dart';
 import 'package:snapchef/recipe.dart';
-
-import 'favoritespage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -146,8 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => FavoritesPage(favoriteRecipes: RecipeViewModel.recipes),
+          builder: (context) => ListPage(recipes: RecipeViewModel.favorites),
         ),
       );
     }
+  
 }
