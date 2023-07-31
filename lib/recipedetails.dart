@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snapchef/firstStep.dart';
 import 'package:snapchef/recipe.dart';
 
 class RecipeDetailsPage extends StatefulWidget {
@@ -44,7 +45,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                     Expanded(
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          // Add onPressed logic for "Steps" button
+                          _navigateToFirstStep(context, widget.recipe);
                         },
                         icon: const Icon(
                           Icons.play_arrow,
@@ -108,6 +109,14 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+  void _navigateToFirstStep(BuildContext context, Recipe recipe) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FirstStepScreen(recipe: recipe),
       ),
     );
   }
