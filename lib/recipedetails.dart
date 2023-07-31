@@ -19,6 +19,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
     super.initState();
     saved = RecipeViewModel.favorites.contains(widget.recipe);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +48,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         onPressed: () {
                           _navigateToFirstStep(context, widget.recipe);
                         },
-                        icon: const Icon(
-                          Icons.play_arrow,
-                          size: 24,
-                        ),
+                        icon: const Icon(Icons.play_arrow),
                         label: const Text(
                           'Steps',
                           style: TextStyle(fontSize: 18, color: Colors.white),
@@ -58,8 +56,10 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
                               255, 255, 217, 65), // Golden yellow
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 35),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                         ),
                       ),
@@ -69,20 +69,21 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                       child: ElevatedButton.icon(
                         onPressed: () {
                           _toggleFavoriteStatus();
+                          print('Favorites button pressed');
                         },
-                        icon: const Icon(
-                          Icons.star,
-                          size: 24,
-                        ),
+                        icon: const Icon(Icons.star_border_outlined),
                         label: const Text(
-                          'Save as Favorite',
+                          'Favorites',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                              255, 255, 109, 65), // Golden yellow
+                          foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                          backgroundColor:
+                              const Color.fromARGB(255, 243, 131, 33),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 35),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                         ),
                       ),
@@ -112,6 +113,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
       ),
     );
   }
+
   void _navigateToFirstStep(BuildContext context, Recipe recipe) {
     Navigator.push(
       context,

@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               _navigateToFavoritesPage(context);
                               print('Favorites button pressed');
                             },
-                            icon: const Icon(Icons.favorite),
+                            icon: const Icon(Icons.star_border_outlined),
                             label: const Text('Favorites'),
                             style: ElevatedButton.styleFrom(
                               foregroundColor: const Color.fromARGB(255, 0, 0, 0),
