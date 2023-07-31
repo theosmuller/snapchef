@@ -56,8 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,18 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               // Text in the center
               const AutoCompleteWidget(),
-              const SizedBox(height: 10),
-              // Two large rectangular interactable buttons
-              
-              const BottomBar()
-              ,
+              const Expanded(child: BottomBar()),
             ],
           ),
         ),
       ),
-      
     );
-    
-    
   }
 }

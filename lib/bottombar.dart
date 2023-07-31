@@ -13,8 +13,8 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+    return Align(
+        alignment: Alignment.bottomCenter,child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Expanded(
           child: ElevatedButton.icon(
