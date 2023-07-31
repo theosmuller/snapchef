@@ -55,13 +55,18 @@ class _AutoCompleteState extends State<AutoCompleteWidget> {
           key: key,
           suggestions: suggestions,
           itemBuilder: (context, item) {
-            return ListTile(
-              title: Text(item.autocompleteterm),
-              subtitle: Text(item.country),
-              onTap: () {
+            return Listener(
+              child: ListTile(
+                title: Text(item.autocompleteterm),
+                subtitle: Text(item.country),
+                onTap: () {
+                  _textEditingController.text = item.autocompleteterm;
+                  _filterRecipesAndNavigateToListPage(
+                      context, item.autocompleteterm);
+                },
+              ),
+              onPointerDown: (s) {
                 _textEditingController.text = item.autocompleteterm;
-                _filterRecipesAndNavigateToListPage(
-                    context, item.autocompleteterm);
               },
             );
           },
