@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Recipe {
   String keyword;
@@ -38,10 +39,9 @@ class Recipe {
   }
 }
 
-
 class RecipeViewModel {
   static late List<Recipe> recipes;
-  static late List<Recipe> favorites;
+  static List<Recipe> favorites = [];
 
   static Future loadRecipe() async {
     try {
@@ -68,14 +68,24 @@ class RecipeViewModel {
     }
   }
 
-static Future<void> saveFavoriteRecipe(Recipe recipe) async {
+  static Future<void> saveFavoriteRecipe(Recipe recipe) async {
     try {
       favorites.add(recipe);
 
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/favorites.json');
+      final Directory directory;
+      if (kIsWeb) {
+        // You cannot modify assets directly on the web.
+        // Instead, you can consider using a web API to store and retrieve data.
+        // For local development/testing, consider using non-web platforms (e.g., Android, iOS).
+        print('Cannot modify assets on the web.');
+        return;
+      } else {
+        directory = await getApplicationDocumentsDirectory();
+      }
 
-      List<Map<String, dynamic>> favoriteRecipesJson = favorites.map((recipe) => recipe.toJson()).toList();
+      final file = File('${directory.path}/favorites.json');
+      List<Map<String, dynamic>> favoriteRecipesJson =
+          favorites.map((recipe) => recipe.toJson()).toList();
       Map<String, dynamic> data = {'recipes': favoriteRecipesJson};
 
       await file.writeAsString(json.encode(data));
@@ -84,4 +94,29 @@ static Future<void> saveFavoriteRecipe(Recipe recipe) async {
     }
   }
 
+  static Future<void> removeFavoriteRecipe(Recipe recipe) async {
+    try {
+      favorites.remove(recipe);
+
+      final Directory directory;
+      if (kIsWeb) {
+        // You cannot modify assets directly on the web.
+        // Instead, you can consider using a web API to store and retrieve data.
+        // For local development/testing, consider using non-web platforms (e.g., Android, iOS).
+        print('Cannot modify assets on the web.');
+        return;
+      } else {
+        directory = await getApplicationDocumentsDirectory();
+      }
+
+      final file = File('${directory.path}/favorites.json');
+      List<Map<String, dynamic>> favoriteRecipesJson =
+          favorites.map((recipe) => recipe.toJson()).toList();
+      Map<String, dynamic> data = {'recipes': favoriteRecipesJson};
+
+      await file.writeAsString(json.encode(data));
+    } catch (e) {
+      print(e);
+    }
+  }
 }
