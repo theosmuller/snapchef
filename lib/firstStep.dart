@@ -85,20 +85,27 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
-              child: Image.network(
-                images[currentStep - 1],
-                fit: BoxFit.cover,
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25,
+                child: Image.network(
+                  images[currentStep - 1],
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(height: 16),
-            Text(
-              "Step ${currentStep}",
-              style: TextStyle(
-                fontFamily: 'CreteRound',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.center,
+              child:
+              Text(
+                "Step ${currentStep}",
+                style: TextStyle(
+                  fontFamily: 'CreteRound',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(height: 16),
