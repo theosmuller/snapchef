@@ -92,15 +92,14 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     setState(() {
       _showPopUp = false;
     });
-    Navigator.of(context, rootNavigator: true).pop('dialog');
   }
 
   void showAlert(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-      title: Text("My title"),
-      content: Text("This is my message."),
+      title: Text(""),
+      content: Text('You can use the voice commands "BACK" and "NEXT" during step by step.'),
       surfaceTintColor: Colors.white,
       actions: [
         Row(
@@ -118,7 +117,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
         ),
         TextButton(
           child: Text("OK"),
-          onPressed: () =>  _closePopUp,
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop('dialog'),
         ),
       ],
     ));
