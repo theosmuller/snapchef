@@ -15,13 +15,15 @@ class FirstStepScreen extends StatefulWidget {
 
 class _FirstStepScreenState extends State<FirstStepScreen> {
   int currentStep = 1;
-  bool _showPopUp = false;
+  bool _showPopUp = true;
 
   @override
   void initState() {
     super.initState();
+    _readData();
     Future.delayed(Duration.zero, () => showAlert(context));
-    _checkFirstTime();
+
+    //_checkFirstTime();
   }
 
   List<num> steps = [1, 2, 3];
@@ -75,22 +77,43 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     }
   }
 
-  void _checkFirstTime() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+  // void _checkFirstTime() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+  //
+  //   setState(() {
+  //     _showPopUp = isFirstTime;
+  //     debugPrint('isFirstTime: $isFirstTime');
+  //     debugPrint('prefs.getBool(isFirstTime): ${prefs.getBool('isFirstTime')}');
+  //   });
+  //
+  //   if (isFirstTime) {
+  //     prefs.setBool('isFirstTime', false);
+  //   }
+  // }
 
+  void _onToggleChanged(bool? newValue){
     setState(() {
-      _showPopUp = isFirstTime;
-    });
+      _showPopUp = newValue ?? true;
 
-    if (isFirstTime) {
-      prefs.setBool('isFirstTime', false);
-    }
+      //if else
+    });
+    debugPrint('_showPopUp: $_showPopUp');
+    debugPrint('newValue: $newValue');
   }
 
-  void _closePopUp() {
+  _saveDontShowAgain(bool userPreference) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    pref.setBool('state', userPreference);
+    return pref;
+  }
+
+  _readData() async {
+    final pref = await SharedPreferences.getInstance();
+
     setState(() {
-      _showPopUp = false;
+      _showPopUp = pref.getBool('state') ?? true;
     });
   }
 
@@ -104,17 +127,21 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Checkbox(
+          children: [
+            StatefulBuilder(
+              builder: (context, setState) {
+              return
+                Checkbox(
                 value: _showPopUp,
-                onChanged: (bool? newValue) => {
-                setState(() {
-                _showPopUp = newValue!;
-                })
-                }),
-            Text("Do not show this again"),
-          ],
-        ),
+                onChanged:
+                _onToggleChanged
+                // _saveDontShowAgain(newValue);
+                    );
+              }
+            ),
+                Text("Do not show this again"),
+              ],
+            ),
         TextButton(
           child: Text("OK"),
           onPressed: () => Navigator.of(context, rootNavigator: true).pop('dialog'),
