@@ -11,50 +11,77 @@ class FirstStepScreen extends StatefulWidget {
 
 class _FirstStepScreenState extends State<FirstStepScreen> {
   int _currentIndex = 0;
+  int currentStep = 1;
 
-  List<num> currentStep = [1, 2, 3, 4, 5, 6];
+  List<num> steps = [1, 2, 3];
 
   List<String> images = [
+    'https://media-cdn.tripadvisor.com/media/photo-s/0e/e2/cf/2e/sorry-but-this-is-not.jpg',
+    'https://media-cdn.tripadvisor.com/media/photo-s/0e/e2/cf/2e/sorry-but-this-is-not.jpg',
     'https://media-cdn.tripadvisor.com/media/photo-s/0e/e2/cf/2e/sorry-but-this-is-not.jpg',
     // Add more image URLs here
   ];
 
   List<String> titles = [
     'Image Title 1',
+    'Image Title 2',
+    'Image Title 3',
     // Add more titles here
   ];
 
   List<String> subtitles = [
     'Image Subtitle 1',
+    'Image Subtitle 2',
+    'Image Subtitle 3',
     // Add more subtitles here
   ];
 
   List<String> descriptions = [
     'Image Description 1 goes here. This is a sample description for the image 1.',
+    'Image Description 2 goes here. This is a sample description for the image 1.',
+    'Image Description 3 goes here. This is a sample description for the image 1.',
     // Add more descriptions here
   ];
 
   void _navigateBack() {
-    Navigator.pop(context);
+    if (currentStep == 1)
+      Navigator.pop(context);
+    else {
+      setState(() {
+        currentStep--;
+    });
+    }
   }
 
   void _navigateNext() {
-    if (_currentIndex < images.length - 1) {
+    if (currentStep < steps.length) {
       setState(() {
-        _currentIndex++;
-      });
-    }
+        //_currentIndex++;
+        currentStep++;
+      });}
+      else if (currentStep == steps.length){
+        Navigator.pop(context);
+      }
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isFirstStep = currentStep == 1;
+    bool isLastStep = currentStep == (steps.length);
+
+    String stepRightButtonString = isLastStep ? 'Done' : 'Next';
+    IconData stepRightButtonIcon = isLastStep ? Icons.check : Icons.play_arrow;
+
+    Color backButtonColor = isFirstStep ? Colors.grey : Colors.green;
+    Color? nextButtonColor = isLastStep ? Colors.amber[700] : Colors.green;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: _navigateBack,
         ),
-        title: Text('Step 1'),
+        title: Text("Step ${currentStep}"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,13 +89,13 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
           Expanded(
             flex: 1,
             child: Image.network(
-              images[_currentIndex],
+              images[currentStep-1],
               fit: BoxFit.cover,
             ),
           ),
           SizedBox(height: 16),
           Text(
-            titles[_currentIndex],
+            titles[currentStep-1],
             style: TextStyle(
               fontFamily: 'CreteRound',
               fontSize: 24,
@@ -77,7 +104,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
           ),
           SizedBox(height: 8),
           Text(
-            subtitles[_currentIndex],
+            subtitles[currentStep-1],
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -89,7 +116,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                descriptions[_currentIndex],
+                descriptions[currentStep-1],
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -125,7 +152,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                         ]),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey, // Golden yellow color
+                    backgroundColor: backButtonColor, // Golden yellow color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -137,16 +164,16 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                   onPressed: () {
                     _navigateNext();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.play_arrow,
                     size: 24,
                     color: Colors.transparent,
                   ),
                   label: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text(
-                        'Steps',
+                        stepRightButtonString,
                         style: TextStyle(
                             fontFamily: 'CreteRound',
                             fontSize: 24,
@@ -160,14 +187,14 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                             ]),
                       ),
                       Icon(
-                        Icons.play_arrow,
+                        stepRightButtonIcon,
                         size: 24,
                         color: Colors.white,
                       ),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green, // Golden yellow color
+                    backgroundColor: nextButtonColor, // Golden yellow color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

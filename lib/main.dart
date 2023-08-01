@@ -3,8 +3,6 @@ import 'package:snapchef/autocomplete.dart';
 import 'package:snapchef/bottombar.dart';
 import 'package:snapchef/recipe.dart';
 
-import 'bottombar.dart';
-
 void main() {
   runApp(const MyApp());
 }
