@@ -10,7 +10,6 @@ class FirstStepScreen extends StatefulWidget {
 }
 
 class _FirstStepScreenState extends State<FirstStepScreen> {
-  int _currentIndex = 0;
   int currentStep = 1;
 
   List<num> steps = [1, 2, 3];
@@ -23,23 +22,23 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   ];
 
   List<String> titles = [
-    'Image Title 1',
-    'Image Title 2',
-    'Image Title 3',
+    '1',
+    '2',
+    '3',
     // Add more titles here
   ];
 
-  List<String> subtitles = [
-    'Image Subtitle 1',
-    'Image Subtitle 2',
-    'Image Subtitle 3',
+  List<String> ingredients = [
+    'Dough for single-crust pie',
+    'Ingredient 2',
+    'Ingredient 3',
     // Add more subtitles here
   ];
 
-  List<String> descriptions = [
-    'Image Description 1 goes here. This is a sample description for the image 1.',
-    'Image Description 2 goes here. This is a sample description for the image 1.',
-    'Image Description 3 goes here. This is a sample description for the image 1.',
+  List<String> preparation = [
+    'On a lightly floured surface, roll dough to a 1/8-in.-thick circle; transfer to a 9-in. pie plate. Trim to 1/2 in. beyond rim of plate; flute edge. Refrigerate 30 minutes. Preheat oven to 425°.',
+    'Image Description 2 goes here. This is a sample description for the image 2.',
+    'Image Description 3 goes here. This is a sample description for the image 3.',
     // Add more descriptions here
   ];
 
@@ -86,8 +85,8 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 1,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.25,
             child: Image.network(
               images[currentStep-1],
               fit: BoxFit.cover,
@@ -95,7 +94,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
           ),
           SizedBox(height: 16),
           Text(
-            titles[currentStep-1],
+            "Step ${currentStep}",
             style: TextStyle(
               fontFamily: 'CreteRound',
               fontSize: 24,
@@ -104,7 +103,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
           ),
           SizedBox(height: 8),
           Text(
-            subtitles[currentStep-1],
+            'Preparation',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -116,9 +115,10 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                descriptions[currentStep-1],
+                preparation[currentStep-1],
                 style: TextStyle(
                   fontSize: 16,
+                  fontFamily: 'Inter'
                 ),
               ),
             ),
