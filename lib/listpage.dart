@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snapchef/autocomplete.dart';
 import 'package:snapchef/recipe.dart';
 import 'package:snapchef/recipedetails.dart';
 
@@ -14,13 +15,14 @@ class ListPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(),
         body: Column(children: [
+              const AutoCompleteWidget(),
           recipes.isEmpty
               ? const Center(
-                  child: Text(
+                  child: Expanded(child: Text(
                     'No recipes found :(',
                     style: TextStyle(fontSize: 20),
                   ),
-                )
+                ))
               : Expanded(
                   child: ListView.builder(
                     itemCount: recipes.length,
@@ -40,7 +42,7 @@ class ListPage extends StatelessWidget {
                     },
                   ),
                 ),
-          const BottomBar(),
+          const Align(alignment: Alignment.bottomCenter,child: BottomBar()),
         ]));
   }
 
