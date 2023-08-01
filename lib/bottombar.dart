@@ -22,8 +22,20 @@ class _BottomBarState extends State<BottomBar> {
               // Add functionality for the search button
               print('Search button pressed');
             },
-            icon: const Icon(Icons.search),
-            label: const Text('Search'),
+            icon: Icon(Icons.search, color: Colors.white, shadows: [
+              Shadow(
+                offset: Offset(2.0, 2.0),
+                blurRadius: 4.0,
+                color: Color.fromARGB(120, 0, 0, 0),
+              ),
+            ]),
+            label: Text('Search', style: TextStyle(fontFamily: 'CreteRound', fontSize: 24, color: Colors.white, shadows: [
+              Shadow(
+                offset: Offset(2.0, 2.0),
+                blurRadius: 4.0,
+                color: Color.fromARGB(120, 0, 0, 0),
+              ),
+            ]),),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: const Color.fromARGB(255, 243, 131, 33),
@@ -41,8 +53,20 @@ class _BottomBarState extends State<BottomBar> {
               _navigateToFavoritesPage(context);
               print('Favorites button pressed');
             },
-            icon: const Icon(Icons.star_border_outlined),
-            label: const Text('Favorites'),
+            icon: Icon(Icons.star_border_outlined, color: Colors.grey[800], shadows: [
+              Shadow(
+                offset: Offset(2.0, 2.0),
+                blurRadius: 4.0,
+                color: Color.fromARGB(120, 0, 0, 0),
+              ),
+            ]),
+            label: Text('Favorites', style: TextStyle(fontFamily: 'CreteRound', fontSize: 24, color: Colors.grey[800], shadows: [
+              Shadow(
+                offset: Offset(2.0, 2.0),
+                blurRadius: 4.0,
+                color: Color.fromARGB(120, 0, 0, 0),
+              ),
+            ]),),
             style: ElevatedButton.styleFrom(
               foregroundColor: const Color.fromARGB(255, 0, 0, 0),
               backgroundColor: const Color.fromARGB(255, 248, 246, 240),

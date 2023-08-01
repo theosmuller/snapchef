@@ -16,9 +16,9 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   List<num> steps = [1, 2, 3];
 
   List<String> images = [
-    'https://media-cdn.tripadvisor.com/media/photo-s/0e/e2/cf/2e/sorry-but-this-is-not.jpg',
-    'https://media-cdn.tripadvisor.com/media/photo-s/0e/e2/cf/2e/sorry-but-this-is-not.jpg',
-    'https://media-cdn.tripadvisor.com/media/photo-s/0e/e2/cf/2e/sorry-but-this-is-not.jpg',
+    'https://static.vecteezy.com/system/resources/previews/021/217/663/non_2x/lemon-pie-food-png.png',
+    'https://del.h-cdn.co/assets/17/16/2048x2048/square-1492693946-108-sein-9781101967140-art-r1-1.jpg',
+    'https://static.vecteezy.com/system/resources/previews/021/217/663/non_2x/lemon-pie-food-png.png',
     // Add more image URLs here
   ];
 
