@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snapchef/recipe.dart';
+
 
 class FirstStepScreen extends StatefulWidget {
   final Recipe recipe;
@@ -10,8 +12,17 @@ class FirstStepScreen extends StatefulWidget {
   _FirstStepScreenState createState() => _FirstStepScreenState();
 }
 
+
 class _FirstStepScreenState extends State<FirstStepScreen> {
   int currentStep = 1;
+  bool _showPopUp = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () => showAlert(context));
+    _checkFirstTime();
+  }
 
   List<num> steps = [1, 2, 3];
 
@@ -44,8 +55,9 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   ];
 
   void _navigateBack() {
-    if (currentStep == 1)
+    if (currentStep == 1) {
       Navigator.pop(context);
+    }
     else {
       setState(() {
         currentStep--;
@@ -63,6 +75,55 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     }
   }
 
+  void _checkFirstTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+    setState(() {
+      _showPopUp = isFirstTime;
+    });
+
+    if (isFirstTime) {
+      prefs.setBool('isFirstTime', false);
+    }
+  }
+
+  void _closePopUp() {
+    setState(() {
+      _showPopUp = false;
+    });
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+  }
+
+  void showAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+      title: Text("My title"),
+      content: Text("This is my message."),
+      surfaceTintColor: Colors.white,
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Checkbox(
+                value: _showPopUp,
+                onChanged: (bool? newValue) => {
+                setState(() {
+                _showPopUp = newValue!;
+                })
+                }),
+            Text("Do not show this again"),
+          ],
+        ),
+        TextButton(
+          child: Text("OK"),
+          onPressed: () =>  _closePopUp,
+        ),
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isFirstStep = currentStep == 1;
@@ -73,6 +134,8 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
 
     Color backButtonColor = isFirstStep ? Colors.grey : Colors.green;
     Color? nextButtonColor = isLastStep ? Colors.amber[700] : Colors.green;
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -170,7 +233,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      _navigateBack();
+                      isFirstStep ? _navigateBack() : _navigateBack();
                     },
                     icon: const Icon(Icons.fast_rewind,
                         size: 24, color: Colors.white),
@@ -242,8 +305,9 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
             ),
             SizedBox(height: 16),
           ],
-        ),
+        )
       ),
     );
   }
+
 }
