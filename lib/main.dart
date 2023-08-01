@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:snapchef/autocomplete.dart';
 import 'package:snapchef/bottombar.dart';
-import 'package:snapchef/listpage.dart';
 import 'package:snapchef/recipe.dart';
+
+import 'bottombar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,13 +67,33 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               // Logo image slightly above center
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(top: 100.0, bottom: 10.0),
                 child: SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: Image.asset(
-                    'logo.png', // Replace with your logo image path
-                  ),
+                  height: 200,
+                  child: Stack(
+                    children: <Widget>[
+                      // Stroked text as border.
+                      Text(
+                        'SnapChef',
+                        style: TextStyle(
+                          fontFamily: 'GrandHotel',
+                          fontSize: 64,
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 8
+                            ..color = Colors.deepOrangeAccent,
+                        ),
+                      ),
+                      Text(
+                        'SnapChef',
+                        style: TextStyle(
+                          fontFamily: 'GrandHotel',
+                          fontSize: 64,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  )
                 ),
               ),
               // Text in the center
