@@ -70,6 +70,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
           Text(
             titles[_currentIndex],
             style: TextStyle(
+              fontFamily: 'CreteRound',
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -111,7 +112,17 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                   ),
                   label: const Text(
                     'Back',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'CreteRound',
+                        fontSize: 24,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 4.0,
+                            color: Color.fromARGB(120, 0, 0, 0),
+                          ),
+                        ]),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey, // Golden yellow color
@@ -129,11 +140,31 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                   icon: const Icon(
                     Icons.play_arrow,
                     size: 24,
-                    color: Colors.white
+                    color: Colors.transparent,
                   ),
-                  label: const Text(
-                    'Steps',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  label: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'Steps',
+                        style: TextStyle(
+                            fontFamily: 'CreteRound',
+                            fontSize: 24,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 4.0,
+                                color: Color.fromARGB(120, 0, 0, 0),
+                              ),
+                            ]),
+                      ),
+                      Icon(
+                        Icons.play_arrow,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green, // Golden yellow color
@@ -141,7 +172,8 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                )),
+                ),
+              ),
             ],
           ),
           SizedBox(height: 16),

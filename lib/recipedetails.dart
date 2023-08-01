@@ -48,10 +48,22 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         onPressed: () {
                           _navigateToFirstStep(context, widget.recipe);
                         },
-                        icon: const Icon(Icons.play_arrow),
+                        icon: const Icon(Icons.play_arrow, color: Colors.white, shadows: [
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 4.0,
+                            color: Color.fromARGB(120, 0, 0, 0),
+                          ),
+                        ]),
                         label: const Text(
                           'Steps',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontFamily: 'CreteRound', fontSize: 24, color: Colors.white, shadows: [
+                            Shadow(
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 4.0,
+                              color: Color.fromARGB(120, 0, 0, 0),
+                            ),
+                          ]),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
@@ -71,10 +83,22 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                           _toggleFavoriteStatus();
                           print('Favorites button pressed');
                         },
-                        icon: const Icon(Icons.star_border_outlined),
+                        icon: const Icon(Icons.star_border_outlined, color: Colors.white, shadows: [
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 4.0,
+                            color: Color.fromARGB(120, 0, 0, 0),
+                          ),
+                        ]),
                         label: const Text(
                           'Favorites',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontFamily: 'CreteRound', fontSize: 24, color: Colors.white, shadows: [
+                            Shadow(
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 4.0,
+                              color: Color.fromARGB(120, 0, 0, 0),
+                            ),
+                          ]),
                         ),
                         style: ElevatedButton.styleFrom(
                           foregroundColor: const Color.fromARGB(255, 0, 0, 0),
