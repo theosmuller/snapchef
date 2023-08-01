@@ -3,6 +3,7 @@ import 'package:snapchef/recipe.dart';
 
 class FirstStepScreen extends StatefulWidget {
   final Recipe recipe;
+
   const FirstStepScreen({super.key, required this.recipe});
 
   @override
@@ -30,8 +31,8 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
 
   List<String> ingredients = [
     'Dough for single-crust pie',
-    'Ingredient 2',
-    'Ingredient 3',
+    '',
+    '',
     // Add more subtitles here
   ];
 
@@ -48,19 +49,18 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     else {
       setState(() {
         currentStep--;
-    });
+      });
     }
   }
 
   void _navigateNext() {
     if (currentStep < steps.length) {
       setState(() {
-        //_currentIndex++;
         currentStep++;
-      });}
-      else if (currentStep == steps.length){
-        Navigator.pop(context);
-      }
+      });
+    } else if (currentStep == steps.length) {
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -80,66 +80,96 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
           icon: Icon(Icons.arrow_back),
           onPressed: _navigateBack,
         ),
-        title: Text("Step ${currentStep}"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.25,
-            child: Image.network(
-              images[currentStep-1],
-              fit: BoxFit.cover,
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: Image.network(
+                images[currentStep - 1],
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-          Text(
-            "Step ${currentStep}",
-            style: TextStyle(
-              fontFamily: 'CreteRound',
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            SizedBox(height: 16),
+            Text(
+              "Step ${currentStep}",
+              style: TextStyle(
+                fontFamily: 'CreteRound',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Preparation',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+            SizedBox(height: 16),
+            Visibility(
+              visible: isFirstStep,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // Align children to the start (left)
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 16), // Add left margin to "Ingredients" text
+                    child: Text(
+                      'Ingredients',
+                      style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: EdgeInsets.only(left: 16), // Add left margin to ingredients text
+                    child: Text(
+                      ingredients[currentStep - 1],
+                      style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.only(left: 16), // Add left margin to "Preparation" text
               child: Text(
-                preparation[currentStep-1],
+                'Preparation',
                 style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Inter'
+                  color: Colors.grey[800],
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Inter',
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    _navigateBack();
-                  },
-                  icon: const Icon(
-                    Icons.fast_rewind,
-                    size: 24,
-                    color: Colors.white
-                  ),
-                  label: const Text(
-                    'Back',
-                    style: TextStyle(
+            SizedBox(height: 16),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0), // Add left and right horizontal padding
+                child: Text(
+                  preparation[currentStep - 1],
+                  style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      _navigateBack();
+                    },
+                    icon: const Icon(Icons.fast_rewind,
+                        size: 24, color: Colors.white),
+                    label: const Text(
+                      'Back',
+                      style: TextStyle(
                         fontFamily: 'CreteRound',
                         fontSize: 24,
                         color: Colors.white,
@@ -149,32 +179,31 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                             blurRadius: 4.0,
                             color: Color.fromARGB(120, 0, 0, 0),
                           ),
-                        ]),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: backButtonColor, // Golden yellow color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                        ],
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: backButtonColor, // Golden yellow color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
-                )),
-              SizedBox(width: 16),
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    _navigateNext();
-                  },
-                  icon: Icon(
-                    Icons.play_arrow,
-                    size: 24,
-                    color: Colors.transparent,
-                  ),
-                  label: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        stepRightButtonString,
-                        style: TextStyle(
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      _navigateNext();
+                    },
+                    icon: Icon(Icons.play_arrow,
+                        size: 24, color: Colors.transparent),
+                    label: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          stepRightButtonString,
+                          style: TextStyle(
                             fontFamily: 'CreteRound',
                             fontSize: 24,
                             color: Colors.white,
@@ -184,27 +213,29 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                                 blurRadius: 4.0,
                                 color: Color.fromARGB(120, 0, 0, 0),
                               ),
-                            ]),
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          stepRightButtonIcon,
+                          size: 24,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: nextButtonColor, // Golden yellow color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      Icon(
-                        stepRightButtonIcon,
-                        size: 24,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: nextButtonColor, // Golden yellow color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-        ],
+              ],
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }
