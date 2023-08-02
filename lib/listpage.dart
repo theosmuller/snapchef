@@ -42,8 +42,9 @@ class ListPage extends StatelessWidget {
                     },
                   ),
                 ),
-          const Align(alignment: Alignment.bottomCenter,child: BottomBar()),
-        ]));
+        ]),
+        bottomNavigationBar: const BottomBar() ,
+    );
   }
 
   Widget _buildRecipeImage(String imageUri) {

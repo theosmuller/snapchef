@@ -91,9 +91,10 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
               ],
             ),
           ),
-          const Align(alignment: Alignment.bottomCenter,child: BottomBar()),
         ],
       ),
+
+      bottomNavigationBar: const BottomBar() ,
     );
   }
 

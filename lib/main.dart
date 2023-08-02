@@ -73,11 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               // Text in the center
               const AutoCompleteWidget(),
-              const Expanded(child: BottomBar()),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: const BottomBar() ,
     );
   }
 }
