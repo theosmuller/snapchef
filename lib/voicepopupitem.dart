@@ -14,17 +14,16 @@ class _VoicePopUpItemState extends State<VoicePopUpItem> {
   @override
   void initState() {
     super.initState();
-    _readData();
+    _getDontShowAgainPreferences();
   }
 
-  _saveDontShowAgain(bool userPreference) async{
+  _setDontShowAgainPreferences(bool userPreference) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    pref.setBool('state', userPreference);
-    return pref;
+    return pref.setBool('state', userPreference);
   }
 
-  _readData() async {
+  _getDontShowAgainPreferences() async {
     final pref = await SharedPreferences.getInstance();
 
     setState(() {
@@ -63,7 +62,7 @@ class _VoicePopUpItemState extends State<VoicePopUpItem> {
           SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              _saveDontShowAgain(checkboxvalue);
+              _setDontShowAgainPreferences(checkboxvalue);
               Navigator.pop(context, checkboxvalue);
             },
                 //Navigator.of(context, rootNavigator: true).pop('dialog'),

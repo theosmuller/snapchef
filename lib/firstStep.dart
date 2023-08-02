@@ -21,7 +21,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () => showAlert(context));
+    _updatePopUpPreference();
   }
 
   List<num> steps = [1, 2, 3];
@@ -75,6 +75,25 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     }
   }
 
+  Future<bool> _getPopUpPreferences() async {
+    final pref = await SharedPreferences.getInstance();
+
+    return pref.getBool('state') ?? true;
+
+  }
+
+  void _updatePopUpPreference() async {
+    //debugPrint("update ANTES  ${_showPopUp}");
+    bool newValue = await _getPopUpPreferences();
+    setState(() {
+      _showPopUp = !newValue;
+    });
+
+    if (_showPopUp) {
+      Future.delayed(Duration.zero, () => showAlert(context));
+    }
+  }
+
   void showAlert(BuildContext context) {
     showDialog(
       context: context,
@@ -107,8 +126,6 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
 
     Color backButtonColor = isFirstStep ? Colors.grey : Colors.green;
     Color? nextButtonColor = isLastStep ? Colors.amber[700] : Colors.green;
-
-
 
     return Scaffold(
       appBar: AppBar(
