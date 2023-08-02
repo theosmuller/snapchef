@@ -21,10 +21,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   @override
   void initState() {
     super.initState();
-    _readData();
     Future.delayed(Duration.zero, () => showAlert(context));
-
-    //_checkFirstTime();
   }
 
   List<num> steps = [1, 2, 3];
@@ -78,52 +75,12 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     }
   }
 
-  // void _checkFirstTime() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
-  //
-  //   setState(() {
-  //     _showPopUp = isFirstTime;
-  //     debugPrint('isFirstTime: $isFirstTime');
-  //     debugPrint('prefs.getBool(isFirstTime): ${prefs.getBool('isFirstTime')}');
-  //   });
-  //
-  //   if (isFirstTime) {
-  //     prefs.setBool('isFirstTime', false);
-  //   }
-  // }
-
-  void _onToggleChanged(bool? newValue){
-    setState(() {
-      _showPopUp = newValue ?? true;
-
-      //if else
-    });
-    debugPrint('_showPopUp: $_showPopUp');
-    debugPrint('newValue: $newValue');
-  }
-
-  _saveDontShowAgain(bool userPreference) async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-
-    pref.setBool('state', userPreference);
-    return pref;
-  }
-
-  _readData() async {
-    final pref = await SharedPreferences.getInstance();
-
-    setState(() {
-      _showPopUp = pref.getBool('state') ?? true;
-    });
-  }
-
   void showAlert(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {
         return AlertDialog(
-            title: Text(""),
+            //title: Text(""),
             surfaceTintColor: Colors.white,
             content:
             StatefulBuilder(
@@ -139,33 +96,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
       }
     });
   }
-    //   //content: Text('You can use the voice commands "BACK" and "NEXT" during step by step.'),
-    //   surfaceTintColor: Colors.white,
-    //   actions: [
-    //     Row(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         StatefulBuilder(
-    //           builder: (context, setState) {
-    //           return
-    //             Checkbox(
-    //             value: _showPopUp,
-    //             onChanged:
-    //             _onToggleChanged
-    //             // _saveDontShowAgain(newValue);
-    //                 );
-    //           }
-    //         ),
-    //             Text("Do not show this again"),
-    //           ],
-    //         ),
-    //     TextButton(
-    //       child: Text("OK"),
-    //       onPressed: () => Navigator.of(context, rootNavigator: true).pop('dialog'),
-    //     ),
-    //   ],
-    // ));
-  //}
+
 
   @override
   Widget build(BuildContext context) {
