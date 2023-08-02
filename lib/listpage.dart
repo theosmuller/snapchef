@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snapchef/autocomplete.dart';
 import 'package:snapchef/recipe.dart';
-import 'package:snapchef/recipedetails.dart';
+import 'package:snapchef/recipedetails/recipedetails.dart';
 
 import 'bottombar.dart';
 
