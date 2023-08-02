@@ -28,13 +28,13 @@ class _BottomBarState extends State<BottomBar> {
                       color: Color.fromARGB(120, 0, 0, 0),
                     ),
                   ]),
-                  label: Text(
+                  label: const Text(
                     'Search',
                     style: TextStyle(
                         fontFamily: 'CreteRound',
                         fontSize: 24,
                         color: Colors.white,
-                        shadows: const [
+                        shadows: [
                           Shadow(
                             offset: Offset(2.0, 2.0),
                             blurRadius: 4.0,
