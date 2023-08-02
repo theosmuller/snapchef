@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snapchef/recipe.dart';
 import 'package:snapchef/popup/voicepopupitem.dart';
-import 'package:snapchef/stepbystep/back_step_button.dart';
+import 'package:snapchef/recipe.dart';
+import 'package:speech_to_text/speech_recognition_error.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
+import 'back_step_button.dart';
 import 'next_step_button.dart';
 
 
@@ -21,10 +24,27 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   int currentStep = 1;
   bool _showPopUp = true;
 
+  final SpeechToText _speechToText = SpeechToText();
+  bool _speechEnabled = false;
+  bool _speechAvailable = false;
+  String _lastWords = '';
+  String _currentWords = '';
+  final String _selectedLocaleId = 'en_US';
+
+  printLocales() async {
+    var locales = await _speechToText.locales();
+    for (var local in locales) {
+      debugPrint(local.name);
+      debugPrint(local.localeId);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _updatePopUpPreference();
+    _initSpeech();
+    //_startListening();
   }
 
   List<num> steps = [1, 2, 3];
@@ -59,6 +79,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
 
   void _navigateBack() {
     if (currentStep == 1) {
+      _stopListening;
       Navigator.pop(context);
     }
     else {
@@ -74,7 +95,9 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
         currentStep++;
       });
     } else if (currentStep == steps.length) {
+      _stopListening;
       Navigator.pop(context);
+
     }
   }
 
@@ -95,6 +118,89 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     if (_showPopUp) {
       Future.delayed(Duration.zero, () => showAlert(context));
     }
+  }
+
+  void errorListener(SpeechRecognitionError error) async {
+    debugPrint(error.errorMsg.toString());
+  }
+
+  void statusListener(String status) async {
+    debugPrint("status $status");
+    if (status == "done" && _speechEnabled) {
+      setState(() {
+        _lastWords += " $_currentWords";
+        _currentWords = "";
+        _speechEnabled = false;
+      });
+    }
+    else {
+      // wait 50 mil seconds and try again
+      await Future.delayed(Duration(milliseconds: 50));
+    }
+      await _startListening();
+  }
+
+  /// This has to happen only once per app
+  void _initSpeech() async {
+    _speechAvailable = await _speechToText.initialize(
+        onError: errorListener,
+        onStatus: statusListener
+    );
+    setState(() {});
+  }
+
+  /// Each time to start a speech recognition session
+  Future _startListening() async {
+    debugPrint("=================================================");
+    debugPrint("STARTED LISTENING");
+    //await _stopListening();
+    await Future.delayed(const Duration(milliseconds: 50));
+    await _speechToText.listen(
+        onResult: _onSpeechResult,
+        localeId: _selectedLocaleId,
+        cancelOnError: true,
+        partialResults: true,
+        listenFor: const Duration(seconds: 10),
+        pauseFor: Duration(seconds: 2),
+    );
+    setState(() {
+      _speechEnabled = true;
+    });
+  }
+
+  /// Manually stop the active speech recognition session
+  /// Note that there are also timeouts that each platform enforces
+  /// and the SpeechToText plugin supports setting timeouts on the
+  /// listen method.
+  Future _stopListening() async {
+      debugPrint("--------->STOPPED LISTENING");
+      setState(() {
+        _speechEnabled = false;
+      });
+      await _speechToText.stop();
+  }
+
+  /// This is the callback that the SpeechToText plugin calls when
+  /// the platform returns recognized words.
+  void _onSpeechResult(SpeechRecognitionResult result) {
+    setState(() {
+      _currentWords = result.recognizedWords;
+      //debugPrint(_currentWords);
+    });
+
+      String spokenWords = result.recognizedWords.toLowerCase();
+      debugPrint(spokenWords);
+      if (spokenWords.contains('back')) {
+        _navigateBack();
+      } else if (spokenWords.contains('next')) {
+        _navigateNext();
+      }
+  }
+
+  @override
+  void dispose() {
+    _stopListening(); // Stop listening when the screen is disposed
+    super.dispose();
   }
 
   void showAlert(BuildContext context) {
@@ -127,7 +233,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     String stepRightButtonString = isLastStep ? 'Done' : 'Next';
     IconData stepRightButtonIcon = isLastStep ? Icons.check : Icons.play_arrow;
 
-    Color backButtonColor = isFirstStep ? Colors.grey : Colors.green;
+    Color backButtonColor = isFirstStep ? Colors.grey[300] as Color : Colors.green;
     Color nextButtonColor = isLastStep ? Colors.amber[700] as Color : Colors.green;
 
     return Scaffold(
