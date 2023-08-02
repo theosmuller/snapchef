@@ -234,7 +234,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: _navigateBack,
         ),
       ),
@@ -252,19 +252,19 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Align(
             alignment: Alignment.center,
             child: Text(
               "Step ${currentStep}",
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'CreteRound',
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Visibility(
             visible: isFirstStep,
             child: Column(
@@ -272,7 +272,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
               // Align children to the start (left)
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 16), // Add left margin to "Ingredients" text
                   child: Text(
                     'Ingredients',
@@ -284,21 +284,21 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 16), // Add left margin to ingredients text
                   child: Text(
                     ingredients[currentStep - 1],
-                    style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                    style: const TextStyle(fontSize: 18, fontFamily: 'Inter'),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 left: 16), // Add left margin to "Preparation" text
             child: Text(
               'Preparation',
@@ -310,22 +310,22 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Expanded(
             flex: 2,
             child: Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 0), // Add left and right horizontal padding
               child: Text(
                 preparation[currentStep - 1],
-                style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                style: const TextStyle(fontSize: 18, fontFamily: 'Inter'),
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -337,7 +337,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                   iconData: Icons.fast_rewind, // Change the icon
                   backgroundColor: backButtonColor,
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 NextStepButton(
                   onPressed: () {
                     _navigateNext();
@@ -351,7 +351,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       )),
     );
