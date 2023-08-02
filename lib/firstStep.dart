@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snapchef/recipe.dart';
+import 'package:snapchef/voicepopupitem.dart';
 
 
 class FirstStepScreen extends StatefulWidget {
@@ -120,35 +121,51 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   void showAlert(BuildContext context) {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-      title: Text(""),
-      content: Text('You can use the voice commands "BACK" and "NEXT" during step by step.'),
-      surfaceTintColor: Colors.white,
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        builder: (context) {
+        return AlertDialog(
+            title: Text(""),
+            surfaceTintColor: Colors.white,
+            content:
             StatefulBuilder(
-              builder: (context, setState) {
-              return
-                Checkbox(
-                value: _showPopUp,
-                onChanged:
-                _onToggleChanged
-                // _saveDontShowAgain(newValue);
-                    );
-              }
-            ),
-                Text("Do not show this again"),
-              ],
-            ),
-        TextButton(
-          child: Text("OK"),
-          onPressed: () => Navigator.of(context, rootNavigator: true).pop('dialog'),
-        ),
-      ],
-    ));
+                builder: (BuildContext context, StateSetter setState) {
+                  return const VoicePopUpItem();
+                }));
+        },
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _showPopUp = value;
+        });
+      }
+    });
   }
+    //   //content: Text('You can use the voice commands "BACK" and "NEXT" during step by step.'),
+    //   surfaceTintColor: Colors.white,
+    //   actions: [
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         StatefulBuilder(
+    //           builder: (context, setState) {
+    //           return
+    //             Checkbox(
+    //             value: _showPopUp,
+    //             onChanged:
+    //             _onToggleChanged
+    //             // _saveDontShowAgain(newValue);
+    //                 );
+    //           }
+    //         ),
+    //             Text("Do not show this again"),
+    //           ],
+    //         ),
+    //     TextButton(
+    //       child: Text("OK"),
+    //       onPressed: () => Navigator.of(context, rootNavigator: true).pop('dialog'),
+    //     ),
+    //   ],
+    // ));
+  //}
 
   @override
   Widget build(BuildContext context) {
