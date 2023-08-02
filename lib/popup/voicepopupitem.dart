@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'custom_ok_button.dart';
+
 class VoicePopUpItem extends StatefulWidget {
   const VoicePopUpItem({Key? key}) : super(key: key);
 
@@ -60,34 +62,9 @@ class _VoicePopUpItemState extends State<VoicePopUpItem> {
             ],
           ),
           SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              _setDontShowAgainPreferences(checkboxvalue);
-              Navigator.pop(context, checkboxvalue);
-            },
-                //Navigator.of(context, rootNavigator: true).pop('dialog'),
-            child: Text(
-              'OK',
-              style: TextStyle(
-                fontFamily: 'CreteRound',
-                fontSize: 24,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    offset: Offset(2.0, 2.0),
-                    blurRadius: 4.0,
-                    color: Color.fromARGB(120, 0, 0, 0),
-                  ),
-                ],
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.deepOrangeAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-            ),
+          CustomOkButton(
+            checkboxValue: checkboxvalue,
+            onPressed: _setDontShowAgainPreferences,
           ),
         ],
       ),

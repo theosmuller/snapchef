@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snapchef/recipe.dart';
-import 'package:snapchef/voicepopupitem.dart';
+import 'package:snapchef/popup/voicepopupitem.dart';
+import 'package:snapchef/stepbystep/back_step_button.dart';
+
+import 'next_step_button.dart';
 
 
 class FirstStepScreen extends StatefulWidget {
@@ -125,7 +128,7 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     IconData stepRightButtonIcon = isLastStep ? Icons.check : Icons.play_arrow;
 
     Color backButtonColor = isFirstStep ? Colors.grey : Colors.green;
-    Color? nextButtonColor = isLastStep ? Colors.amber[700] : Colors.green;
+    Color nextButtonColor = isLastStep ? Colors.amber[700] as Color : Colors.green;
 
     return Scaffold(
       appBar: AppBar(
@@ -222,78 +225,24 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          isFirstStep ? _navigateBack() : _navigateBack();
-                        },
-                        icon: const Icon(Icons.fast_rewind,
-                            size: 24, color: Colors.white),
-                        label: const Text(
-                          'Back',
-                          style: TextStyle(
-                            fontFamily: 'CreteRound',
-                            fontSize: 24,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                offset: Offset(2.0, 2.0),
-                                blurRadius: 4.0,
-                                color: Color.fromARGB(120, 0, 0, 0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: backButtonColor, // Golden yellow color
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-                        ),
-                      ),
+                    BackStepButton(
+                      onPressed: () {
+                        isFirstStep ? null : _navigateBack();
+                      },
+                      label: 'Back', // Change the label text
+                      iconData: Icons.fast_rewind, // Change the icon
+                      backgroundColor: backButtonColor,
                     ),
                     SizedBox(width: 16),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          _navigateNext();
-                        },
-                        icon: SizedBox(),
-                        label: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              stepRightButtonString,
-                              style: TextStyle(
-                                fontFamily: 'CreteRound',
-                                fontSize: 24,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2.0, 2.0),
-                                    blurRadius: 4.0,
-                                    color: Color.fromARGB(120, 0, 0, 0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(
-                              stepRightButtonIcon,
-                              size: 24,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: nextButtonColor, // Golden yellow color
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-                        ),
-                      ),
+                    NextStepButton(
+                      onPressed: () {
+                        _navigateNext();
+                      },
+                      label: stepRightButtonString, // Change the label text
+                      backgroundColor: nextButtonColor, // Customize the background color
+                      iconData: stepRightButtonIcon, // Change the icon to any desired IconData
                     ),
+
                   ],
                 ),
               ),

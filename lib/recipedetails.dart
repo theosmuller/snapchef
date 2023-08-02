@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:snapchef/firstStep.dart';
+import 'package:snapchef/stepbystep/stepbystep.dart';
 import 'package:snapchef/recipe.dart';
 
 class RecipeDetailsPage extends StatefulWidget {
