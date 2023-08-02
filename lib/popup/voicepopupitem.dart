@@ -41,7 +41,7 @@ class _VoicePopUpItemState extends State<VoicePopUpItem> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 20),
-          Text('You can use the voice commands \nBACK\n and\n NEXT\n during step by step.', style: TextStyle(fontFamily: 'Inter', fontSize: 18, height: 2.0), textAlign: TextAlign.center,),
+          Text('You can use the voice commands\nBACK\nand\nNEXT\nduring step by step.', style: TextStyle(fontFamily: 'Inter', fontSize: 18, height: 2.0), textAlign: TextAlign.center,),
           SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
