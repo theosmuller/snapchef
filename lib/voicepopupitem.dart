@@ -57,7 +57,7 @@ class _VoicePopUpItemState extends State<VoicePopUpItem> {
                   }
               ),
               SizedBox(height: 20),
-              Text("Do not show this again", style: TextStyle(fontFamily: 'Inter', fontSize: 16)),
+              Text("Do not show this again", style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.grey[700])),
             ],
           ),
           SizedBox(height: 20),
@@ -87,6 +87,7 @@ class _VoicePopUpItemState extends State<VoicePopUpItem> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             ),
           ),
         ],

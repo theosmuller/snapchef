@@ -77,17 +77,16 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
 
   void showAlert(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (context) {
+      context: context,
+      builder: (context) {
         return AlertDialog(
-            //title: Text(""),
             surfaceTintColor: Colors.white,
             content:
             StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
                   return const VoicePopUpItem();
                 }));
-        },
+      },
     ).then((value) {
       if (value != null) {
         setState(() {
@@ -119,134 +118,102 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
         ),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25,
-                child: Image.network(
-                  images[currentStep - 1],
-                  fit: BoxFit.cover,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  child: Image.network(
+                    images[currentStep - 1],
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 16),
-            Align(
-              alignment: Alignment.center,
-              child:
-              Text(
-                "Step ${currentStep}",
-                style: TextStyle(
-                  fontFamily: 'CreteRound',
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              SizedBox(height: 16),
+              Align(
+                alignment: Alignment.center,
+                child:
+                Text(
+                  "Step ${currentStep}",
+                  style: TextStyle(
+                    fontFamily: 'CreteRound',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 16),
-            Visibility(
-              visible: isFirstStep,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // Align children to the start (left)
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 16), // Add left margin to "Ingredients" text
-                    child: Text(
-                      'Ingredients',
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Inter',
+              SizedBox(height: 16),
+              Visibility(
+                visible: isFirstStep,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // Align children to the start (left)
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 16), // Add left margin to "Ingredients" text
+                      child: Text(
+                        'Ingredients',
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Inter',
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                  Padding(
-                    padding: EdgeInsets.only(left: 16), // Add left margin to ingredients text
-                    child: Text(
-                      ingredients[currentStep - 1],
-                      style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                    SizedBox(height: 16),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16), // Add left margin to ingredients text
+                      child: Text(
+                        ingredients[currentStep - 1],
+                        style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: EdgeInsets.only(left: 16), // Add left margin to "Preparation" text
-              child: Text(
-                'Preparation',
-                style: TextStyle(
-                  color: Colors.grey[800],
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Inter',
+                  ],
                 ),
               ),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0), // Add left and right horizontal padding
+              SizedBox(height: 16),
+              Padding(
+                padding: EdgeInsets.only(left: 16), // Add left margin to "Preparation" text
                 child: Text(
-                  preparation[currentStep - 1],
-                  style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      isFirstStep ? _navigateBack() : _navigateBack();
-                    },
-                    icon: const Icon(Icons.fast_rewind,
-                        size: 24, color: Colors.white),
-                    label: const Text(
-                      'Back',
-                      style: TextStyle(
-                        fontFamily: 'CreteRound',
-                        fontSize: 24,
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 4.0,
-                            color: Color.fromARGB(120, 0, 0, 0),
-                          ),
-                        ],
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: backButtonColor, // Golden yellow color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
+                  'Preparation',
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Inter',
                   ),
                 ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      _navigateNext();
-                    },
-                    icon: Icon(Icons.play_arrow,
-                        size: 24, color: Colors.transparent),
-                    label: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          stepRightButtonString,
+              ),
+              SizedBox(height: 16),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0), // Add left and right horizontal padding
+                  child: Text(
+                    preparation[currentStep - 1],
+                    style: TextStyle(fontSize: 18, fontFamily: 'Inter'),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 16),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          isFirstStep ? _navigateBack() : _navigateBack();
+                        },
+                        icon: const Icon(Icons.fast_rewind,
+                            size: 24, color: Colors.white),
+                        label: const Text(
+                          'Back',
                           style: TextStyle(
                             fontFamily: 'CreteRound',
                             fontSize: 24,
@@ -260,26 +227,62 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
                             ],
                           ),
                         ),
-                        Icon(
-                          stepRightButtonIcon,
-                          size: 24,
-                          color: Colors.white,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: backButtonColor, // Golden yellow color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
                         ),
-                      ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: nextButtonColor, // Golden yellow color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                  ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          _navigateNext();
+                        },
+                        icon: SizedBox(),
+                        label: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              stepRightButtonString,
+                              style: TextStyle(
+                                fontFamily: 'CreteRound',
+                                fontSize: 24,
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 4.0,
+                                    color: Color.fromARGB(120, 0, 0, 0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              stepRightButtonIcon,
+                              size: 24,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: nextButtonColor, // Golden yellow color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            SizedBox(height: 16),
-          ],
-        )
+              ),
+              SizedBox(height: 16),
+            ],
+          )
       ),
     );
   }
