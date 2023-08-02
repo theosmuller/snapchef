@@ -41,16 +41,19 @@ class Recipe {
 
 class RecipeViewModel {
   static late List<Recipe> recipes;
+  static late List<String> recipeNames;
   static List<Recipe> favorites = [];
 
   static Future loadRecipe() async {
     try {
       recipes = <Recipe>[];
+      recipeNames = <String>[];
       String jsonString = await rootBundle.loadString('recipes.json');
       Map parsedJson = json.decode(jsonString);
       var categoryJson = parsedJson['recipes'] as List;
       for (int i = 0; i < categoryJson.length; i++) {
         recipes.add(Recipe.fromJson(categoryJson[i]));
+        recipeNames.add(recipes[i].autocompleteterm);
       }
       favorites = <Recipe>[];
       jsonString = await rootBundle.loadString('favorites.json');

@@ -14,7 +14,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Align(
-        alignment: Alignment.bottomCenter,child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        alignment: Alignment.bottomCenter,child:
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Expanded(
           child: ElevatedButton.icon(
@@ -22,7 +22,7 @@ class _BottomBarState extends State<BottomBar> {
               // Add functionality for the search button
               print('Search button pressed');
             },
-            icon: Icon(Icons.search, color: Colors.white, shadows: [
+            icon: const Icon(Icons.search, color: Colors.white, shadows: [
               Shadow(
                 offset: Offset(2.0, 2.0),
                 blurRadius: 4.0,
@@ -78,7 +78,7 @@ class _BottomBarState extends State<BottomBar> {
           ),
         )
       ])
-    ]));
+    );
   }
 
   void _navigateToFavoritesPage(BuildContext context) {
