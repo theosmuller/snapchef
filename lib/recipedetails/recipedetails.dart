@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snapchef/stepbystep/stepbystep.dart';
-import 'package:snapchef/recipe.dart';
+import 'package:snapchef/recipe/recipe.dart';
 
 import '../bottombar.dart';
 import 'favorite_button.dart';
@@ -20,7 +20,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   @override
   void initState() {
     super.initState();
-    saved = RecipeViewModel.favorites.contains(widget.recipe);
+    saved = widget.recipe.favorite.toLowerCase() == "true";
   }
 
   @override
@@ -110,9 +110,9 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _toggleFavoriteStatus() {
     setState(() {
       if (saved) {
-        RecipeViewModel.saveFavoriteRecipe(widget.recipe);
+        //RecipeViewModel.saveFavoriteRecipe(widget.recipe);
       } else {
-        RecipeViewModel.removeFavoriteRecipe(widget.recipe);
+        //RecipeViewModel.removeFavoriteRecipe(widget.recipe);
       }
       saved = !saved;
     });

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:snapchef/recipe.dart';
 
 import 'listpage.dart';
 
@@ -101,7 +100,7 @@ class _BottomBarState extends State<BottomBar> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListPage(recipes: RecipeViewModel.favorites),
+        builder: (context) => ListPage(isFavorites: true),
       ),
     );
   }

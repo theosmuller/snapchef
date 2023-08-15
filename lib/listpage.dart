@@ -1,21 +1,30 @@
+
 import 'package:flutter/material.dart';
 import 'package:snapchef/autocomplete.dart';
-import 'package:snapchef/recipe.dart';
+import 'package:snapchef/recipe/recipe.dart';
 import 'package:snapchef/recipedetails/recipedetails.dart';
 
 import 'bottombar.dart';
 
 class ListPage extends StatelessWidget {
-  final List<Recipe> recipes;
+  final bool isFavorites;
+  final String? filter;
 
-  const ListPage({super.key, required this.recipes});
+  ListPage({super.key, required this.isFavorites, this.filter});
+
 
   @override
   Widget build(BuildContext context) {
+    // return FutureBuilder(future: isFavorites? Recipe.filteredFavoriteRecipesAsync(filter!.toLowerCase()) : Recipe.filteredRecipesAsync(filter!.toLowerCase()) , builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+    //   if (snapshot.connectionState == ConnectionState.waiting) {
+    //
+    //   }
+    // })
+    List<Recipe> recipes = [];
     return Scaffold(
         appBar: AppBar(),
         body: Column(children: [
-              const AutoCompleteWidget(),
+            AutoCompleteWidget(),
           recipes.isEmpty
               ? const Center(
                   child: Expanded(child: Text(

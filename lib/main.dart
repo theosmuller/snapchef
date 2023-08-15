@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snapchef/autocomplete.dart';
 import 'package:snapchef/bottombar.dart';
-import 'package:snapchef/recipe.dart';
+import 'package:snapchef/recipe/recipe.dart';
 import 'package:snapchef/snapchefLogo.dart';
-
-import 'listpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +47,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void _loadData() async {
-    await RecipeViewModel.loadRecipe();
+    await Recipe.loadRecipe();
   }
 
   @override
