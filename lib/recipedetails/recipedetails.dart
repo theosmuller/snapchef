@@ -1,32 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:snapchef/stepbystep/stepbystep.dart';
-import 'package:snapchef/recipe.dart';
+import 'package:snapchef/recipe/recipe.dart';
 
 import '../bottombar.dart';
 import 'favorite_button.dart';
 
 class RecipeDetailsPage extends StatefulWidget {
   final Recipe recipe;
+  final int saved;
 
-  const RecipeDetailsPage({Key? key, required this.recipe}) : super(key: key);
+  const RecipeDetailsPage({Key? key, required this.recipe, required this.saved}) : super(key: key);
 
   @override
   _RecipeDetailsPageState createState() => _RecipeDetailsPageState();
 }
 
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
-  bool saved = false;
+  int _saved = 0;
+  int get saved => _saved;
+
+  set saved(int newValue) {
+    setState(() {
+      _saved = newValue;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    saved = RecipeViewModel.favorites.contains(widget.recipe);
+    _saved = widget.saved;
+
   }
 
   @override
   Widget build(BuildContext context) {
 
-    IconData isFavoriteRecipeIcon = saved ? Icons.star : Icons.star_border_outlined;
+    IconData isFavoriteRecipeIcon = saved == 1 ? Icons.star : Icons.star_border_outlined;
 
     return Scaffold(
       appBar: AppBar(
@@ -109,12 +118,12 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
 
   void _toggleFavoriteStatus() {
     setState(() {
-      if (saved) {
-        RecipeViewModel.saveFavoriteRecipe(widget.recipe);
+      if (saved == 1) {
+        //RecipeViewModel.saveFavoriteRecipe(widget.recipe);
       } else {
-        RecipeViewModel.removeFavoriteRecipe(widget.recipe);
+        //RecipeViewModel.removeFavoriteRecipe(widget.recipe);
       }
-      saved = !saved;
+      saved = saved == 1 ? 0 : 1;
     });
   }
 }

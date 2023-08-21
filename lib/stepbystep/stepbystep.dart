@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snapchef/popup/voicepopupitem.dart';
-import 'package:snapchef/recipe.dart';
+import 'package:snapchef/recipe/recipe.dart';
 //import 'package:speech_to_text/speech_recognition_error.dart';
 //import 'package:speech_to_text/speech_recognition_result.dart';
 //import 'package:speech_to_text/speech_to_text.dart';
@@ -23,11 +23,11 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
   bool _showPopUp = true;
 
   //final SpeechToText _speechToText = SpeechToText();
-  bool _speechEnabled = false;
-  bool _speechAvailable = false;
-  String _lastWords = '';
-  String _currentWords = '';
-  final String _selectedLocaleId = 'en_US';
+  // bool _speechEnabled = false;
+  // bool _speechAvailable = false;
+  // String _lastWords = '';
+  // String _currentWords = '';
+  // final String _selectedLocaleId = 'en_US';
   //
   // printLocales() async {
   //   //var locales = await _speechToText.locales();
@@ -103,17 +103,17 @@ class _FirstStepScreenState extends State<FirstStepScreen> {
     return pref.getBool('state') ?? true;
   }
 
-  void _updatePopUpPreference() async {
-    //debugPrint("update ANTES  ${_showPopUp}");
-    bool newValue = await _getPopUpPreferences();
-    setState(() {
-      _showPopUp = !newValue;
-    });
-
-    if (_showPopUp) {
-      Future.delayed(Duration.zero, () => showAlert(context));
-    }
-  }
+  // void _updatePopUpPreference() async {
+  //   //debugPrint("update ANTES  ${_showPopUp}");
+  //   bool newValue = await _getPopUpPreferences();
+  //   setState(() {
+  //     _showPopUp = !newValue;
+  //   });
+  //
+  //   if (_showPopUp) {
+  //     Future.delayed(Duration.zero, () => showAlert(context));
+  //   }
+  // }
 
   //void errorListener(SpeechRecognitionError error) async {
   //  debugPrint(error.errorMsg.toString());

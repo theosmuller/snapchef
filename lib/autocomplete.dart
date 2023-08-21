@@ -1,10 +1,12 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:snapchef/recipe.dart';
+import 'package:snapchef/recipe/recipe.dart';
 import 'package:snapchef/listpage.dart';
 
 class AutoCompleteWidget extends StatefulWidget {
-  const AutoCompleteWidget({super.key});
+   final bool favorites;
+  //     favorites; // TEM QUE PASSAR ISSO NA PAGINA Q DESENHA O WIDGET E PASSAR PRO NAVIGATE DESSA CLASSE
+  const AutoCompleteWidget({super.key, required this.favorites});
 
   @override
   _AutoCompleteState createState() => _AutoCompleteState();
@@ -12,51 +14,76 @@ class AutoCompleteWidget extends StatefulWidget {
 
 class _AutoCompleteState extends State<AutoCompleteWidget> {
   GlobalKey<AutoCompleteTextFieldState<Recipe>> key = GlobalKey();
-  List<Recipe> suggestions = RecipeViewModel.recipes;
   String searchText = "";
-  TextEditingController _textEditingController = TextEditingController();
+//  TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Container(
-          width: 300,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Autocomplete<String>(
-              optionsBuilder: (TextEditingValue textEditingValue) {
-            if (textEditingValue.text.isEmpty) {
-              return const Iterable<String>.empty();
-            }
-            return RecipeViewModel.recipeNames.where((element) => element
-                .toLowerCase()
-                .contains(textEditingValue.text.toLowerCase()));
-          }, onSelected: (value) {
-            _filterRecipesAndNavigateToListPage(context, value);
-          }, fieldViewBuilder:
-                  (context, controller, focusNode, onEditingComplete) {
-            return TextField(
-                controller: controller,
-                focusNode: focusNode,
-                onEditingComplete: onEditingComplete,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'What are we cooking today?',
-                  hintStyle: const TextStyle(color: Colors.black),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      _filterRecipesAndNavigateToListPage(context, controller.text);
-                    },
+    return FutureBuilder(
+        future: Recipe.recipesAsync(),
+        builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Column(children: <Widget>[
+              Container(
+                  width: 300,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                ),
-                onSubmitted: (value) {_filterRecipesAndNavigateToListPage(context, value);},
-            );
-          }))
-    ]);
+                  child: const Text("Loading recipes"))
+            ]);
+          } else {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return Column(children: <Widget>[
+                Container(
+                    width: 300,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Autocomplete<String>(optionsBuilder:
+                        (TextEditingValue textEditingValue) {
+                      if (textEditingValue.text.isEmpty) {
+                        return const Iterable<String>.empty();
+                      }
+                      Iterable<Recipe> filteredRecipes = snapshot.data!.where((recipe) => recipe
+                          .autocompleteterm
+                          .toLowerCase()
+                          .contains(textEditingValue.text.toLowerCase()));
+                      return filteredRecipes.map((recipe) => recipe.autocompleteterm);
+                    }, onSelected: (value) {
+                      _filterRecipesAndNavigateToListPage(context, value);
+                    }, fieldViewBuilder:
+                        (context, controller, focusNode, onEditingComplete) {
+                      return TextField(
+                        controller: controller,
+                        focusNode: focusNode,
+                        onEditingComplete: onEditingComplete,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'What are we cooking today?',
+                          hintStyle: const TextStyle(color: Colors.black),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.search),
+                            onPressed: () {
+                              _filterRecipesAndNavigateToListPage(
+                                  context, controller.text);
+                            },
+                          ),
+                        ),
+                        onSubmitted: (value) {
+                          _filterRecipesAndNavigateToListPage(context, value);
+                        },
+                      );
+                    }))
+              ]);
+            }
+          }
+        });
   }
 
 // ,
@@ -112,16 +139,10 @@ class _AutoCompleteState extends State<AutoCompleteWidget> {
 
   void _filterRecipesAndNavigateToListPage(
       BuildContext context, String searchText) {
-    List<Recipe> filteredRecipes = suggestions.where((item) {
-      return item.autocompleteterm
-          .toLowerCase()
-          .contains(searchText.toLowerCase());
-    }).toList();
-
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListPage(recipes: filteredRecipes),
+        builder: (context) => ListPage(isFavorites: widget.favorites, filter: searchText),
       ),
     );
   }
