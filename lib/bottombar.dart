@@ -100,7 +100,7 @@ class _BottomBarState extends State<BottomBar> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListPage(isFavorites: true),
+        builder: (context) => ListPage(isFavorites: true, filter: ""),
       ),
     );
   }

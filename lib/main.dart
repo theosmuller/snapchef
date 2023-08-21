@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SnapChefLogo(),
               ),
               // Text in the center
-              const AutoCompleteWidget(),
+              const AutoCompleteWidget(favorites: false),
             ],
           ),
         ),

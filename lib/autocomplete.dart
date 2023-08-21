@@ -4,9 +4,9 @@ import 'package:snapchef/recipe/recipe.dart';
 import 'package:snapchef/listpage.dart';
 
 class AutoCompleteWidget extends StatefulWidget {
-  // final bool
+   final bool favorites;
   //     favorites; // TEM QUE PASSAR ISSO NA PAGINA Q DESENHA O WIDGET E PASSAR PRO NAVIGATE DESSA CLASSE
-  const AutoCompleteWidget({super.key, /*required this.favorites*/});
+  const AutoCompleteWidget({super.key, required this.favorites});
 
   @override
   _AutoCompleteState createState() => _AutoCompleteState();
@@ -50,12 +50,11 @@ class _AutoCompleteState extends State<AutoCompleteWidget> {
                       if (textEditingValue.text.isEmpty) {
                         return const Iterable<String>.empty();
                       }
-                      return snapshot.data!.map((recipe) => recipe
-                              .autocompleteterm
-                              .toLowerCase()
-                              .contains(textEditingValue.text.toLowerCase())
-                          ? recipe.autocompleteterm
-                          : '');
+                      Iterable<Recipe> filteredRecipes = snapshot.data!.where((recipe) => recipe
+                          .autocompleteterm
+                          .toLowerCase()
+                          .contains(textEditingValue.text.toLowerCase()));
+                      return filteredRecipes.map((recipe) => recipe.autocompleteterm);
                     }, onSelected: (value) {
                       _filterRecipesAndNavigateToListPage(context, value);
                     }, fieldViewBuilder:
@@ -143,7 +142,7 @@ class _AutoCompleteState extends State<AutoCompleteWidget> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListPage(isFavorites: false, filter: searchText),
+        builder: (context) => ListPage(isFavorites: widget.favorites, filter: searchText),
       ),
     );
   }
