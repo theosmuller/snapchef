@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snapchef/recipedetails/restriction_label.dart';
 import 'package:snapchef/stepbystep/stepbystep.dart';
 import 'package:snapchef/recipe/recipe.dart';
 
@@ -100,56 +101,77 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                       ),
                       const SizedBox(
                           height: 12), // Add some spacing between sections
-                      Row(
-                        children: [
-                          // First Column of 2nd Row
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  children: [
-                                    Icon(Icons.access_time_filled_rounded, color: Colors.grey), // Icon in the first row of the first column
-                                    SizedBox(height: 8), // Spacer between icon and text
-                                    Text(
-                                      "60 min",
-                                      style: TextStyle(
-                                        fontFamily: 'CreteRound',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                      Center(
+                        child: Row(
+                          children: [
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.access_time_filled_rounded, color: Colors.grey), // Icon in the first row of the first column
+                                      SizedBox(height: 8), // Spacer between icon and text
+                                      Text(
+                                        "60 min",
+                                        style: TextStyle(
+                                          fontFamily: 'CreteRound',
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Container(
-                            height: 30, // Adjust the height to match your needs
-                            child: VerticalDivider(
-                              color: Colors.grey[400],
-                              thickness: 1,
-                            ),
-                          ),
-
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  "Vegetarian",
-                                  style: const TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 16,
+                                    ],
                                   ),
                                 ),
+                              ],
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 30, // Adjust the height to match your needs
+                                child: VerticalDivider(
+                                  color: Colors.grey[400],
+                                  thickness: 1,
+                                ),
                               ),
-                              SizedBox(height: 24), // Blank row 2
-                              SizedBox(height: 24), // Blank row 3
-                            ],
-                          ),
-                        ],
+                            ),
+
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            RestrictionsLabel(label: 'Vegetarian'),
+                                            SizedBox(height: 10),
+                                            RestrictionsLabel(label: 'Vegan'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 24),
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          RestrictionsLabel(label: 'Gluten-free'),
+                                          SizedBox(height: 10),
+                                          RestrictionsLabel(label: 'Spicy'),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 24),
+                                  ],
+                                ), // Blank row 3
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       Center(
                         child: Container(
@@ -165,7 +187,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 16), // Add left margin to "Ingredients" text
+                                ), // Add left margin to "Ingredients" text
                             child: Text(
                               'Ingredients',
                               style: TextStyle(
@@ -194,7 +216,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 16, top: 16), // Add left margin to "Ingredients" text
+                                 top: 16),
                             child: Text(
                               'Instructions',
                               style: TextStyle(
