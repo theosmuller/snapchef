@@ -36,6 +36,7 @@ class ListPage extends StatelessWidget {
                 appBar: AppBar(),
                 body: Column(children: [
                   AutoCompleteWidget(favorites: isFavorites),
+                  SizedBox(height: 25),
                   snapshot.data!.isEmpty
                       ? const Center(
                       child: Expanded(child: Text(
