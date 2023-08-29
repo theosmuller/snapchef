@@ -17,7 +17,6 @@ class RecipeImageWithStar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IconData isFilledStarIcon = isFavorite ? Icons.star_rounded : Icons.star_border_rounded;
     return Stack(
       children: [
         Image.network(
@@ -26,15 +25,28 @@ class RecipeImageWithStar extends StatelessWidget {
           height: height,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 5,
-          right: 5,
-          child: Icon(
-            isFilledStarIcon,
-            color: isFavorite ? Colors.amber : Colors.white,
-            size: starSize,
+        if (isFavorite)
+          Positioned(
+            top: 2,
+            right: 2,
+            child: Stack(
+              children: [
+                Container(
+                  width: starSize,
+                  height: starSize,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withOpacity(0.9),
+                  ),
+                ),
+                Icon(
+                  Icons.star_rounded,
+                  color: Colors.amber,
+                  size: starSize,
+                ),
+              ],
+            ),
           ),
-        ),
       ],
     );
   }
