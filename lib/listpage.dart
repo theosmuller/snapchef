@@ -5,6 +5,7 @@ import 'package:snapchef/recipe/recipe.dart';
 import 'package:snapchef/recipedetails/recipedetails.dart';
 
 import 'bottombar.dart';
+import 'list_recipe_icon.dart';
 
 class ListPage extends StatelessWidget {
   final bool isFavorites;
@@ -53,7 +54,7 @@ class ListPage extends StatelessWidget {
                                 context, recipe); // Navigate to details page
                           },
                           child: ListTile(
-                            leading: _buildRecipeImage(recipe.image),
+                            leading: _buildRecipeImage(recipe.image, recipe.favorite),
                             title: Text(recipe.autocompleteterm),
                             subtitle: Text(recipe.country),
                           ),
@@ -104,15 +105,15 @@ class ListPage extends StatelessWidget {
   //   );
   // }
 
-  Widget _buildRecipeImage(String imageUri) {
-    // Replace this with your image loading logic based on the image URI
-    // For example, you can use Image.network if the image is accessible via a URL
-    // Or use Image.file if the image is stored locally on the device.
-    return Image.network(
-      imageUri,
-      width: 50, // Set the desired width for the image
-      height: 50, // Set the desired height for the image
-      fit: BoxFit.cover, // Set the image fit mode
+  Widget _buildRecipeImage(String imageUri, int isSaved) {
+    bool favoriteIcon = false;
+    if(isSaved == 1) favoriteIcon = true;
+
+    return RecipeImageWithStar(
+      imageUri: imageUri,
+      width: 100,
+      height: 100,
+      isFavorite: favoriteIcon
     );
   }
 }
