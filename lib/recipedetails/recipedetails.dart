@@ -41,7 +41,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
       appBar: AppBar(
         title: Text(widget.recipe.autocompleteterm),
       ),
-      body: Column(
+      body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
@@ -82,18 +82,143 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Country: ${widget.recipe.country}'),
+                      Row(
+                        children: [
+                          Text(
+                            "${widget.recipe.autocompleteterm}",
+                            style: const TextStyle(
+                              fontFamily: 'CreteRound',
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(
                           height: 12), // Add some spacing between sections
-                      Text('Ingredients: ${widget.recipe.keyword}'),
-                      const SizedBox(
-                          height: 12), // Add some spacing between sections
-                      Text('Instructions: ${widget.recipe.country}'),
-                      // Add more details as needed
+                      Row(
+                        children: [
+                          // First Column of 2nd Row
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.access_time_filled_rounded, color: Colors.grey), // Icon in the first row of the first column
+                                    SizedBox(height: 8), // Spacer between icon and text
+                                    Text(
+                                      "60 min",
+                                      style: TextStyle(
+                                        fontFamily: 'CreteRound',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Container(
+                            height: 30, // Adjust the height to match your needs
+                            child: VerticalDivider(
+                              color: Colors.grey[400],
+                              thickness: 1,
+                            ),
+                          ),
+
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  "Vegetarian",
+                                  style: const TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 24), // Blank row 2
+                              SizedBox(height: 24), // Blank row 3
+                            ],
+                          ),
+                        ],
+                      ),
+                      Center(
+                        child: Container(
+                          height: 30,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Divider(
+                            color: Colors.grey[400],
+                            thickness: 1,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16), // Add left margin to "Ingredients" text
+                            child: Text(
+                              'Ingredients',
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'CreteRound',
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, top: 16),
+                            child: Text(
+                              "Flour, Butter, Sugar, Lemon, Condensed Milk",
+                              style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: 16,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, top: 16), // Add left margin to "Ingredients" text
+                            child: Text(
+                              'Instructions',
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'CreteRound',
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, top: 16),
+                            child: Text(
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rutrum cursus tortor in ultricies. Maecenas feugiat velit leo, vitae hendrerit eros consequat non. Aenean in sem lorem. Nunc quis pulvinar ipsum, vel blandit lorem. Duis dui nunc, finibus id fermentum sit amet, molestie sed ex. Maecenas sit amet erat fermentum, sodales tellus dapibus, molestie dolor. Nullam et rhoncus ipsum, ullamcorper egestas diam. Aliquam nec sollicitudin turpis. Aliquam ullamcorper aliquam tellus, maximus semper enim hendrerit sit amet. Nulla ut rutrum nulla, non bibendum sem. Vivamus mollis bibendum quam, ut blandit felis. In ac tristique ligula, vel bibendum leo. Ut lobortis id mauris vestibulum feugiat. Morbi pellentesque facilisis nisi, sed dignissim velit.",
+                              style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: 16,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
