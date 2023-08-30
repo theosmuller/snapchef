@@ -73,7 +73,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         FavoriteButton(
                           label: 'Favorite',
                           onPressed: () {
-                            _toggleFavoriteStatus();
+                            _toggleFavoriteStatus(widget.recipe.id);
                           },
                           iconData: isFavoriteRecipeIcon,
                           backgroundColor: Colors.deepOrangeAccent,
@@ -104,10 +104,10 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                       Center(
                         child: Row(
                           children: [
-                            Column(
+                            const Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(20.0),
+                                  padding: EdgeInsets.all(20.0),
                                   child: Column(
                                     children: [
                                       Icon(Icons.access_time_filled_rounded, color: Colors.grey), // Icon in the first row of the first column
@@ -263,14 +263,10 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
     );
   }
 
-  void _toggleFavoriteStatus() {
+  void _toggleFavoriteStatus(int recipeId) {
     setState(() {
-      if (saved == 1) {
-        //RecipeViewModel.saveFavoriteRecipe(widget.recipe);
-      } else {
-        //RecipeViewModel.removeFavoriteRecipe(widget.recipe);
-      }
       saved = saved == 1 ? 0 : 1;
+      Recipe.toggleFavorite(recipeId);
     });
   }
 }
