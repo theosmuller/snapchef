@@ -24,7 +24,7 @@ class ListPage extends StatelessWidget {
               body: const Column(children: [
                 Text("Fetching recipes...")
               ]),
-              bottomNavigationBar: const BottomBar(),
+              bottomNavigationBar: BottomBar(),
             );
           }
           else {
@@ -64,7 +64,7 @@ class ListPage extends StatelessWidget {
                     ),
                   ),
                 ]),
-                bottomNavigationBar: const BottomBar(),
+                bottomNavigationBar: BottomBar(isFavoritesScreen: isFavorites),
               );
             }
           }

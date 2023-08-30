@@ -250,7 +250,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
         ],
       ),
 
-      bottomNavigationBar: const BottomBar() ,
+      bottomNavigationBar: BottomBar() ,
     );
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'listpage.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+  late bool isFavoritesScreen;
+  BottomBar({super.key, this.isFavoritesScreen = false});
 
   @override
   _BottomBarState createState() => _BottomBarState();
@@ -12,27 +12,34 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
+
+    Color favoritesScreenBottomBarColor = widget.isFavoritesScreen ? Colors.deepOrangeAccent : Colors.white;
+    Color searchScreenBottomBarColor = !widget.isFavoritesScreen ? Colors.deepOrangeAccent : Colors.white;
+    Color favoritesScreenTextColor = widget.isFavoritesScreen ? Colors.white : Colors.grey.shade800;
+    Color searchScreenTextColor = !widget.isFavoritesScreen ? Colors.white : Colors.grey.shade800;
+
     return SafeArea(
             child: Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
                     // Add functionality for the search button
+                    _navigateToFavoritesPage(context);
                     print('Search button pressed');
                   },
-                  icon: const Icon(Icons.search, color: Colors.white, shadows: [
+                  icon: Icon(Icons.search, color: searchScreenTextColor, shadows: [
                     Shadow(
                       offset: Offset(2.0, 2.0),
                       blurRadius: 4.0,
                       color: Color.fromARGB(120, 0, 0, 0),
                     ),
                   ]),
-                  label: const Text(
+                  label: Text(
                     'Search',
                     style: TextStyle(
                         fontFamily: 'CreteRound',
                         fontSize: 24,
-                        color: Colors.white,
+                        color: searchScreenTextColor,
                         shadows: [
                           Shadow(
                             offset: Offset(2.0, 2.0),
@@ -43,7 +50,7 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 243, 131, 33),
+                    backgroundColor: searchScreenBottomBarColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 35),
                     shape: RoundedRectangleBorder(
@@ -55,12 +62,11 @@ class _BottomBarState extends State<BottomBar> {
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // Add functionality for the favorites button
                     _navigateToFavoritesPage(context);
                     print('Favorites button pressed');
                   },
                   icon: Icon(Icons.star_border_outlined,
-                      color: Colors.grey[800],
+                      color: favoritesScreenTextColor,
                       shadows: const [
                         Shadow(
                           offset: Offset(2.0, 2.0),
@@ -73,7 +79,7 @@ class _BottomBarState extends State<BottomBar> {
                     style: TextStyle(
                         fontFamily: 'CreteRound',
                         fontSize: 24,
-                        color: Colors.grey[800],
+                        color: favoritesScreenTextColor,
                         shadows: const [
                           Shadow(
                             offset: Offset(2.0, 2.0),
@@ -84,7 +90,7 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: const Color.fromARGB(255, 0, 0, 0),
-                    backgroundColor: const Color.fromARGB(255, 248, 246, 240),
+                    backgroundColor: favoritesScreenBottomBarColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 35),
                     shape: RoundedRectangleBorder(
@@ -100,7 +106,7 @@ class _BottomBarState extends State<BottomBar> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListPage(isFavorites: true, filter: ""),
+        builder: (context) => ListPage(isFavorites: !widget.isFavoritesScreen, filter: ""),
       ),
     );
   }
