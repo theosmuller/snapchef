@@ -111,10 +111,10 @@ class ListPage extends StatelessWidget {
     if(isSaved == 1) favoriteIcon = true;
 
     return RecipeImageWithStar(
-      imageUri: imageUri,
-      width: 100,
-      height: 100,
-      isFavorite: favoriteIcon
+        imageUri: imageUri,
+        width: 100,
+        height: 100,
+        isFavorite: favoriteIcon
     );
   }
 }

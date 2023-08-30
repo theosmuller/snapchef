@@ -187,7 +187,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                ), // Add left margin to "Ingredients" text
+                            ), // Add left margin to "Ingredients" text
                             child: Text(
                               'Ingredients',
                               style: TextStyle(
@@ -216,7 +216,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                 top: 16),
+                                top: 16),
                             child: Text(
                               'Instructions',
                               style: TextStyle(
