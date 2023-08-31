@@ -126,16 +126,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                               ],
                             ),
 
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 30, // Adjust the height to match your needs
-                                child: VerticalDivider(
-                                  color: Colors.grey[400],
-                                  thickness: 1,
-                                ),
-                              ),
-                            ),
+                            const SizedBox(width: 20),
 
                             Column(
                               children: [
